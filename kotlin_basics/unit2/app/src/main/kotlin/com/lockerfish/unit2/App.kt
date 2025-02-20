@@ -93,10 +93,88 @@ class App {
             }
     println(x)
   }
+
+  // nullability
+  fun nullability() {
+    val name: String? = null
+    if (name != null) {
+      println(name.length)
+    } else {
+      println("Name is null")
+    }
+
+    // the elvis operator
+    val length = name?.length ?: -1
+    println(length)
+  }
+}
+
+class Child : Person {
+  constructor(name: String, age: Int) : super(name, age)
+
+  override fun showSecret(code: Int) {
+    println("child does not have a secret")
+  }
+}
+
+// classes and objects in kotlin
+open class Person(val name: String, val age: Int) {
+  constructor() : this("John Doe", 0)
+  constructor(name: String) : this(name, 0)
+
+  private var secret = 1234
+
+  var yourSecret: Int = secret
+    set(value) {
+      secret = value
+    }
+
+  fun greet() {
+    println("Hello, my name is $name and I am $age years old")
+  }
+
+  fun greet(name: String) {
+    println("Hello, $name, my name is $name and I am $age years old")
+  }
+
+  fun greet(greeting: Int) {
+    println("$greeting, my name is $name and I am $age years old")
+  }
+
+  open fun showSecret(code: Int) {
+    if (code == secret) {
+      println("My secret is $secret")
+    } else {
+      println("Invalid code")
+    }
+  }
 }
 
 fun main() {
   // App().conditional()
   // App().whenStatement()
-  App().asExpressions()
+  // App().asExpressions()
+
+  // nullability
+  // App().nullability()
+
+  // classes and objects in kotlin
+  val person = Person("Mike", 20) // create an instance of the class Person
+  println(person.name)
+  println(person.age)
+  // person.name = "new name" // this will not compile because name is a val
+  // println(person.secret) // this will not compile because secret is private
+  person.greet()
+  person.greet("John")
+  person.greet(1234)
+  person.yourSecret = 124
+  person.showSecret(124)
+
+  val person2 = Person()
+  println(person2.name)
+
+  val child = Child("Jane", 10)
+  println(child.name)
+  println(child.showSecret(1234))
+  println(child.greet())
 }
