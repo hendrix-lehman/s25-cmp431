@@ -150,6 +150,20 @@ open class Person(val name: String, val age: Int) {
   }
 }
 
+fun trick() {
+  println("Trick")
+}
+
+fun trick1(greeting: String): Boolean {
+  println("Trick $greeting")
+  return true
+}
+
+fun trick2(greeting: String): Boolean {
+  println("Trick $greeting")
+  return true
+}
+
 fun main() {
   // App().conditional()
   // App().whenStatement()
@@ -159,22 +173,56 @@ fun main() {
   // App().nullability()
 
   // classes and objects in kotlin
-  val person = Person("Mike", 20) // create an instance of the class Person
-  println(person.name)
-  println(person.age)
+  // val person = Person("Mike", 20) // create an instance of the class Person
+  // println(person.name)
+  // println(person.age)
   // person.name = "new name" // this will not compile because name is a val
   // println(person.secret) // this will not compile because secret is private
-  person.greet()
-  person.greet("John")
-  person.greet(1234)
-  person.yourSecret = 124
-  person.showSecret(124)
+  // person.greet()
+  // person.greet("John")
+  // person.greet(1234)
+  // person.yourSecret = 124
+  // person.showSecret(124)
 
-  val person2 = Person()
-  println(person2.name)
+  // val person2 = Person()
+  // println(person2.name)
 
-  val child = Child("Jane", 10)
-  println(child.name)
-  println(child.showSecret(1234))
-  println(child.greet())
+  // val child = Child("Jane", 10)
+  // println(child.name)
+  // println(child.showSecret(1234))
+  // println(child.greet())
+
+  val funVar = ::trick
+  funVar()
+
+  trick()
+
+  val funVar2: (greeting: String) -> Boolean
+  funVar2 = ::trick1
+  funVar2("Hello funVar2")
+
+  val funVar3 = { greeting: String ->
+    println("Trick $greeting")
+    true
+  }
+  funVar3("Hello funVar3")
+
+  var someVar: String?
+  var funVar4: ((greeting: String) -> Boolean)?
+  funVar4 = ::trick2
+  someVar = "Hello funVar4"
+  funVar4(someVar)
+
+  val funVar5: (String, Int) -> Boolean = { greeting, _ ->
+    println("Trick $greeting - ")
+    true
+  }
+
+  funVar5("Hello funVar5", 5)
+
+  repeat(5) { println("Hello repeat") }
+
+  val funVar6: (Int) -> Unit = { times -> repeat(times) { println("repeat from funVar6") } }
+
+  repeat(3, funVar6)
 }
